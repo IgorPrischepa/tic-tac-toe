@@ -3,7 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using TicTacToeApi.Bll.Services.Contracts;
+using TicTacToeApi.Bll.Services.Implementations;
 using TicTacToeApi.Dal.Db;
+using TicTacToeApi.Dal.Repos.Contract;
+using TicTacToeApi.Dal.Repos.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,13 +33,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
-// Add services to the container.
-
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Admin", _ => { _.RequireRole("Admin"); });
     options.AddPolicy("Player", _ => { _.RequireRole("Player"); });
 });
+
+//Add repos to the contatainer.
+builder.Services.AddScoped<IUserRepo, UserRepo>();
+builder.Services.AddScoped<IRoleRepo, RoleRepo>();
+
+// Add services to the container.
+builder.Services.AddScoped<IJwtAuthService, JwtAuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

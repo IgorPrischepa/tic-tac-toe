@@ -20,16 +20,32 @@ namespace TicTacToeApi.Bll.Services.Implementations
 
         public JwtAuthService(IUserService userService, ILogger<JwtAuthService> logger, IConfiguration configuration)
         {
-            _userService = userService;
-            _logger = logger;
-            _audience = configuration["Jwt:audience"] ?? throw new ArgumentNullException("Jwt:audience can't be null. Check appsettings.");
-            _issuer = configuration["Jwt:issuer"] ?? throw new ArgumentNullException("Jwt:issuer can't be null. Check appsettings.");
-            _key = configuration["Jwt:secret"] ?? throw new ArgumentNullException("Jwt:secret can't be null. Check appsettings.");
-            _minutes = configuration["Jwt:accessTokenExpiration"] ?? throw new ArgumentNullException("Jwt:accessTokenExpiration can't be null. Check appsettings.");
+            _userService = userService
+                ?? throw new ArgumentNullException($"{nameof(userService)} can't be null");
+
+            _logger = logger
+                ?? throw new ArgumentNullException($"{nameof(logger)} cna't be null"); 
+
+            _audience = configuration["Jwt:audience"]
+                ?? throw new ArgumentNullException("Jwt:audience can't be null. Check appsettings.");
+
+            _issuer = configuration["Jwt:issuer"]
+                ?? throw new ArgumentNullException("Jwt:issuer can't be null. Check appsettings.");
+
+            _key = configuration["Jwt:secret"]
+                ?? throw new ArgumentNullException("Jwt:secret can't be null. Check appsettings.");
+
+            _minutes = configuration["Jwt:accessTokenExpiration"]
+                ?? throw new ArgumentNullException("Jwt:accessTokenExpiration can't be null. Check appsettings.");
         }
 
         public async Task<string> LoginAsync(LoginUserModel user)
         {
+            if (user is null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
             _logger.LogInformation("Start generation token.");
 
             BaseUserModel? targetUser = await _userService.GetUserAsync(user.Email, user.Password);
