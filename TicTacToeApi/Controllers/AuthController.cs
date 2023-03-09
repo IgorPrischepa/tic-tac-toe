@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TicTacToeApi.Bll.Models;
 using TicTacToeApi.Bll.Services.Contracts;
 using TicTacToeApi.Dto.User;
 
@@ -22,7 +23,11 @@ namespace TicTacToeApi.Controllers
         {
             try
             {
-                string token = await _jwtService.LoginAsync(user);
+                string token = await _jwtService.LoginAsync(new LoginUserModel()
+                {
+                    Email = user.Email,
+                    Password = user.Password
+                });
 
                 _logger.LogInformation("The token has been successfully generated.");
                 return Ok(token);
