@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>adf17939-8896-423b-8f5c-e04a7dceb06e</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,7 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\TicTacToeApi.Bll\TicTacToeApi.Bll.csproj" />
+    <ProjectReference Include="..\TicTacToeApi.Dal\TicTacToeApi.Dal.csproj" />
   </ItemGroup>
 
 </Project>
