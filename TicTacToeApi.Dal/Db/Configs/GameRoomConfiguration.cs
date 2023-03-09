@@ -8,9 +8,9 @@ namespace TicTacToeApi.Dal.Db.Configs
     {
         public void Configure(EntityTypeBuilder<GameRoomEntity> builder)
         {
-            builder.HasOne(s => s.FirstPlayer).WithOne(_ => _.CurrentGameRoom);
-            builder.HasOne(s => s.SecondPlayer).WithOne(_ => _.CurrentGameRoom);
+            builder.HasKey(_ => _.GameRoomId);
             builder.HasMany(s => s.GameHistory).WithOne(_ => _.GameRoom);
+            builder.HasOne(u => u.FirstPlayer).WithMany(_ => _.Games);
         }
     }
 }

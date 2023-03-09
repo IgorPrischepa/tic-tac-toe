@@ -8,9 +8,10 @@ namespace TicTacToeApi.Dal.Db.Configs
     {
         public void Configure(EntityTypeBuilder<PlayerTurnEntity> builder)
         {
-            builder.HasOne(_ => _.GameRoom).WithMany(_ => _.GameHistory);
+            builder.HasKey(_ => _.PlayerTurnId);
+            builder.HasOne(_ => _.GameRoom).WithMany(_ => _.GameHistory).HasForeignKey(_ => _.GameRoomId);
+            builder.HasOne(_ => _.Player).WithMany(_ => _.TurnsHistory).HasForeignKey(_ => _.PlayerId);
             builder.Property(_ => _.PlayerId).IsRequired();
-            builder.Property(_ => _.GameRoomId).IsRequired();
             builder.Property(_ => _.Row).IsRequired();
             builder.Property(_ => _.Column).IsRequired();
         }

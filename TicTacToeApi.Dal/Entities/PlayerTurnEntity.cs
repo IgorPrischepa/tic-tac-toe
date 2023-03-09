@@ -2,17 +2,17 @@
 {
     public sealed class PlayerTurnEntity
     {
-        public Guid Id { get; set; }
+        public Guid PlayerTurnId { get; set; }
 
         public int Row { get; set; }
 
         public int Column { get; set; }
 
-        public int PlayerId { get; set; }
+        public Guid PlayerId { get; set; }
 
         public UserEntity Player { get; set; } = null!;
 
-        public int GameRoomId { get; set; }
+        public Guid GameRoomId { get; set; }
 
         public GameRoomEntity GameRoom { get; set; } = null!;
 
