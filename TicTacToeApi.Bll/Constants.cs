@@ -3,6 +3,6 @@
     internal class Constants
     {
         public const string AdminRoleName = "Admin";
-        public const string PlayerRoleName = "Customer";
+        public const string PlayerRoleName = "Player";
     }
 }
