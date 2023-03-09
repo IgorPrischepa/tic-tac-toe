@@ -2,7 +2,7 @@
 {
     public sealed class UserEntity
     {
-        public int Id { get; set; }
+        public Guid UserId { get; set; }
 
         public string NickName { get; set; } = null!;
 
@@ -12,8 +12,8 @@
 
         public string PasswordHash { get; set; } = null!;
 
-        public int CurrentGameRoomId { get; set; }
+        public IList<GameRoomEntity>? Games { get; set; }
 
-        public GameRoomEntity? CurrentGameRoom { get; set; }
+        public IList<PlayerTurnEntity>? TurnsHistory { get; set; }
     }
 }

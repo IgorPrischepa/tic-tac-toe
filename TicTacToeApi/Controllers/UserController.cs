@@ -46,8 +46,8 @@ namespace TicTacToeApi.Controllers
         }
 
         [Authorize(Policy = "Admin")]
-        [HttpDelete("Delete/{id:min(1)}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
             try
             {

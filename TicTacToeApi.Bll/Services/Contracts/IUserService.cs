@@ -7,7 +7,7 @@ namespace TicTacToeApi.Bll.Services.Contracts
     {
         Task<BaseUserModel?> GetUserAsync(string email, string password);
 
-        Task DeleteAsync(int userId);
+        Task DeleteAsync(Guid userId);
 
         Task RegisterUserAsync(AddUserModel addUserModel);
     }

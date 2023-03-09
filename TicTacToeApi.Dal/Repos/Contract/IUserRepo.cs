@@ -4,9 +4,9 @@ namespace TicTacToeApi.Dal.Repos.Contract
 {
     public interface IUserRepo
     {
-        Task<int> AddAsync(UserEntity newUser);
+        Task<Guid> AddAsync(UserEntity newUser);
 
-        Task DeleteAsync(int userId);
+        Task DeleteAsync(Guid userId);
 
         Task<UserEntity?> FindByEmailAsync(string email);
     }

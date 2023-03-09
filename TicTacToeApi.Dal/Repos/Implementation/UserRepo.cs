@@ -14,26 +14,28 @@ namespace TicTacToeApi.Dal.Repos.Implementation
             _db = appDbContext;
         }
 
-        public async Task<int> AddAsync(UserEntity newUser)
+        public async Task<Guid> AddAsync(UserEntity newUser)
         {
             if (newUser == null)
                 throw new ArgumentNullException(nameof(newUser));
 
             await _db.Users.AddAsync(newUser);
             await _db.SaveChangesAsync();
-            return newUser.Id;
+            return newUser.UserId;
         }
 
-        public async Task DeleteAsync(int userId)
+        public async Task DeleteAsync(Guid userId)
         {
-            if (userId > 0)
+            if (userId == Guid.Empty)
             {
-                UserEntity? targetUser = await _db.Users.FirstOrDefaultAsync(_ => _.Id == userId);
-                if (targetUser != null)
-                {
-                    _db.Remove(targetUser);
-                    await _db.SaveChangesAsync();
-                }
+                throw new ArgumentOutOfRangeException("User GUID can't be empty");
+            }
+
+            UserEntity? targetUser = await _db.Users.FirstOrDefaultAsync(_ => _.UserId == userId);
+            if (targetUser != null)
+            {
+                _db.Remove(targetUser);
+                await _db.SaveChangesAsync();
             }
         }
 

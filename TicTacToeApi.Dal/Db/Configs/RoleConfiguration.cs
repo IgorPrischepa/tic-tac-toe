@@ -8,11 +8,11 @@ namespace TicTacToeApi.Dal.Db.Configs
     {
         public void Configure(EntityTypeBuilder<RoleEntity> builder)
         {
+            builder.HasKey(_ => _.RoleId);
             builder.Property(u => u.Name).IsRequired();
             builder.HasIndex(u => u.Name).IsUnique();
-            builder.HasData(new RoleEntity() { Id = 1, Name = "Admin" });
-            builder.HasData(new RoleEntity { Id = 2, Name = "Player" });
-            builder.HasMany(u => u.Users);
+            builder.HasData(new RoleEntity() { RoleId = 1, Name = "Admin" });
+            builder.HasData(new RoleEntity { RoleId = 2, Name = "Player" });
         }
     }
 }

@@ -22,11 +22,11 @@ namespace TicTacToeApi.Bll.Services.Implementations
         }
 
 
-        public async Task DeleteAsync(int userId)
+        public async Task DeleteAsync(Guid userId)
         {
-            if (userId <= 0)
+            if (userId == Guid.Empty)
             {
-                throw new ArgumentOutOfRangeException($"'{nameof(userId)}' can't be less than zero.");
+                throw new ArgumentOutOfRangeException(nameof(userId), "'{userId}' can't be empty.");
             }
 
             await _userRepo.DeleteAsync(userId);
